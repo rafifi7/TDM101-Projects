@@ -1,41 +1,34 @@
-myDF <- read.csv("/anvil/projects/tdm/data/flights/1987.csv", stringsAsFactors = TRUE)
+myDF <- read.csv("/anvil/projects/tdm/data/flights/subset/1995.csv", stringsAsFactors = TRUE)
 head(myDF)
 
-ncol(myDF)
+dim(myDF)
 
-tail(myDF)
+str(myDF)
 
-typeof(myDF)
+myairports <- myDF$Origin
+str(myairports)
 
-myDF2 <- myDF$MONTH
-head(myDF2)
+table(head(myairports, 250))["ORD"]
 
-tail(myDF2)
+table(myairports)["ORD"]
 
-typeof(myDF2)
+table(myairports)["IND"]
 
-myDFyears <- myDF$YEAR
-myDFyears[345:421]
+table(myDF$Dest)["IND"]
 
-myDFcities <- myDF$DEST_CITY_NAME
-myDFcities[894]
+myDF[894,]
 
-myDFdist <- myDF[myDF$DISTANCE < 200, ]
-dist <- myDFdist$DISTANCE
-sum(complete.cases(dist))
+length(myDF$Distance[myDF$Distance < 200])
 
-numbers <- c(1:10)
-numbers
+airlines <- table(myDF$UniqueCarrier)
+tail(sort(airlines), n = 10)
 
-letters <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k')
-letters]
+tail(sort(airlines), n = 3)
 
-mixup <- c(numbers, letters)
-mixup
+head(sort(table(myDF$UniqueCarrier), decreasing = TRUE), n=10)
 
-month<- myDF$MONTH
-hist(month)
+myMonth<- head(sort(table(myDF$Month)),n = 12)
+dotchart(myMonth, pch = 21, bg = "green", pt.cex = 1.5)
 
-dotchart(myDF$MONTH, labels = myDF$MONTH, pch = 21, bg = "green", pt.cex = 1.5)
 
-plot(month)
+
